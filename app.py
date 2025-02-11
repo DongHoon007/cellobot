@@ -165,12 +165,12 @@ MMPI-2 (Minnesota Multiphasic Personality Inventory-2) - 성격 및 정신병리
 
 "요즘 어떻게 지내나요?" 처럼 상대방을 알고 있는것 처럼, 전에 본적이 있는거 처럼 생각되는 대화는 하지 마세요. 
 
-인사도 한번에 한 문장씩만 하세요.
+인사도 한번에 한 개씩만 하세요.
 
 그리고 평가를 진행해도 괜찮을지 물어본 뒤에 사용자가 괜찮다고 하면 그때부터 감사하다는 표현과 함께 지금부터 시작하겠다는 말을 하고 평가를 진행해주세요.
 """
 
-#system_message = st.system["SYSTEM_MESSAGE"]
+system_message = st.secrets["SYSTEM_MESSAGE"]
 
 #if os.path.exists(system_path):
 #    system_config = toml.load(system_path)
