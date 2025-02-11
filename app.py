@@ -3,8 +3,8 @@ from openai import OpenAI
 import streamlit as st
 import toml
 
-#secrets_path = ".streamlit/secrets.toml"
-#system_path = ".streamlit/system.toml"
+secrets_path = ".streamlit/secrets.toml"
+system_path = ".streamlit/system.toml"
 
 # .streamlit 폴더가 없으면 생성
 #if not os.path.exists(".streamlit"):    
@@ -12,13 +12,24 @@ import toml
     
 # secrets.toml 파일 생성
 
-api_key = "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"
+
+
+#if not os.path.exists(secrets_path):
+#    with open(secrets_path, "w", encoding="utf-8") as f:
+#        f.write(f'OPENAI_API_KEY = "{api_key}"\n')
+
+#if not os.path.exists(system_path):
+#    with open(system_path, "w", encoding="utf-8") as s:
+#        s.write(f'SYSTEM_MESSAGE = "{system_message}"\n')
+    
+st.title("조현병 상담 A.I 챗봇 '첼로봇'")
+
+api_key = st.secrets["OPENAI_API_KEY"]
+
 system_message = """
 너의 이름은 한글로 첼로봇 이고 영어로 ChelloBot 이야 
 너는 조현병 증상의 진단 및 상태를 파악하기 위한 대화형 챗봇 이고 주로 상대방의 마음상태가 어떤지, 그리고 조현병과 관계 있는 증상이 
 어떤증상을 갖고 있는지를 질문과 답변을 통해 파악해야 해. 
-
-상대방을 환자라고 생각하고 예의를 갖추어 존대말로 친절하게 대응해야 해.
 
 조현병 증상을 파악하기 위한 정보를 소개하면 다음과 같아. 
 
@@ -150,29 +161,15 @@ MMPI-2 (Minnesota Multiphasic Personality Inventory-2) - 성격 및 정신병리
 
 예를 들어서 "요즘 어떻게 지내나요? 힘들지는 않나요? "처럼 2개 이상의 질문을 한번에 하지 말고 하나 질문하고 다른 하나는 다음에 질문을 해서 참고 자료로 사용 하세요.
 
-그리고 "요즘 어떻게 지내셨나요?" 와 같은 지문은 하지 마세요.  처음 보는 사이인데 마치 알고 지낸 사람처럼 오해할 수 있습니다. 
-
 그리고 "요즘 어떻게 지내나요?" 처럼 상대방을 알고 있는것 처럼, 전에 본적이 있는거 처럼 생각되는 대화는 하지 마세요. 
 
-"요즘 어떻게 지내나요?" 또는 "오늘 기분은 어때요?" 처럼 상대방을 알고 있는것 처럼, 전에 본적이 있는거 처럼 생각되는 대화는 하지 마세요. 
+"요즘 어떻게 지내나요?" 처럼 상대방을 알고 있는것 처럼, 전에 본적이 있는거 처럼 생각되는 대화는 하지 마세요. 
 
 인사도 한번에 한 문장씩만 하세요.
 
 그리고 평가를 진행해도 괜찮을지 물어본 뒤에 사용자가 괜찮다고 하면 그때부터 감사하다는 표현과 함께 지금부터 시작하겠다는 말을 하고 평가를 진행해주세요.
-
 """
 
-#if not os.path.exists(secrets_path):
-#    with open(secrets_path, "w", encoding="utf-8") as f:
-#        f.write(f'OPENAI_API_KEY = "{api_key}"\n')
-
-#if not os.path.exists(system_path):
-#    with open(system_path, "w", encoding="utf-8") as s:
-#        s.write(f'SYSTEM_MESSAGE = "{system_message}"\n')
-    
-st.title("조현병 상담 A.I 챗봇 '첼로봇'")
-
-#api_key = st.secrets["OPENAI_API_KEY"]
 #system_message = st.system["SYSTEM_MESSAGE"]
 
 #if os.path.exists(system_path):
@@ -183,8 +180,8 @@ st.title("조현병 상담 A.I 챗봇 '첼로봇'")
 #system_message = system_config.get("SYSTEM_MESSAGE", "기본메시지")    
 
 
-#client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-client = OpenAI(api_key=api_key)
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+#client = OpenAI(api_key=api_key)
 
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-4o"
